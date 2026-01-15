@@ -143,13 +143,13 @@ if prompt := st.chat_input("Ask for a study plan or ask questions about your lea
                     mermaid_diagrams = re.findall(mermaid_pattern, response, re.DOTALL)
                 
                 # Save roadmap if one was generated
-                if mermaid_diagrams and gemini_client.use_database:
-                    try:
-                        # Extract title from user message or use default
-                        roadmap_title = user_message[:50] + "..." if len(user_message) > 50 else user_message
-                        gemini_client.save_roadmap(roadmap_title, mermaid_diagrams[0])
-                    except Exception as e:
-                        st.warning(f"Could not save roadmap: {e}")
+                if mermaid_diagrams and st. session_state.gemini_client.use_database:
+                  try:
+                    # Extract title from user message or use default
+                    roadmap_title = prompt[: 50] + "..." if len(prompt) > 50 else prompt
+                    st.session_state. gemini_client.save_roadmap(roadmap_title, mermaid_diagrams[0])
+                  except Exception as e: 
+                    st.warning(f"Could not save roadmap: {e}")
                 
                 # Remove Mermaid code blocks from response for cleaner display
                 response_without_mermaid = re.sub(r'```\s*mermaid\s*\n.*?\n```', '', response, flags=re.DOTALL)
